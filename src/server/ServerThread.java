@@ -19,7 +19,10 @@ public class ServerThread implements Runnable {
 	private PrintWriter getWriter(){
 		return clientOut;
 	}
-	
+	/**
+	 * while the socket is open ,keep getting input,save the id of the user .
+	 * check the input ,if there is a private message , message to all ,or the user's request for disconnection and close the socket.
+	 */
 	@Override
 	public void run() {
 		try {
@@ -40,7 +43,7 @@ public class ServerThread implements Runnable {
 
 					} 
 					
-					
+					//the user wants to disconnect
 					if(input.contains("disconnect")) {
 						
 						String ID2=input.substring(0,input.indexOf(">"));
@@ -76,6 +79,7 @@ public class ServerThread implements Runnable {
 								thatClientOut.flush();
 							}
 						}
+						//request for showing online users , print only for the user whom sends the request.
 					}else if (input.contains("Show online users"))
 					{    ServerThread Id2 = null;
 					String ID2=input.substring(0,input.indexOf(">"));
@@ -98,7 +102,7 @@ public class ServerThread implements Runnable {
 					}
 
 
-					//from broadcast
+					//from broadcast ,send everyone.
 					else{ 
 						server.frame.textArea.append(input+"\n");
 						for(ServerThread thatClient : server.getClients()){

@@ -115,7 +115,9 @@ public class GUIclient extends JFrame implements ActionListener{
 		contentPane.add(onlineUsersButton);
 		this.setVisible(true);
 	}
-
+/**
+ * if connect button is pushed ,check if the username is valid ,if it is,open a new client.
+ */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object t = e.getSource();
