@@ -21,6 +21,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JScrollBar;
 import java.awt.Color;
+import java.awt.Font;
 
 public class GUIclient extends JFrame implements ActionListener{
 
@@ -33,6 +34,8 @@ public class GUIclient extends JFrame implements ActionListener{
 	JTextArea inputTextArea;
 	public String name = "";
 	public List<String> clients;
+	public String IPAdress ="";
+	private JTextField ipField;
 	
 
 	/**
@@ -47,39 +50,37 @@ public class GUIclient extends JFrame implements ActionListener{
 	 */
 	public GUIclient() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 647, 444);
+		setBounds(100, 100, 657, 444);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		chatTextArea = new JTextArea();
-		chatTextArea.setEditable(false);
-		chatTextArea.setBackground(new Color(192, 192, 192));
-		chatTextArea.setWrapStyleWord(true);
-		chatTextArea.setLineWrap(true);
-		chatTextArea.setBounds(10, 51, 474, 261);
-		contentPane.add(chatTextArea);
-		
 		usernameField = new JTextField();
 		usernameField.setText("enter your name");
-		usernameField.setBounds(113, 11, 228, 34);
+		usernameField.setBounds(90, 11, 228, 34);
 		contentPane.add(usernameField);
 		usernameField.setColumns(10);
 		
 		JLabel lblUsername = new JLabel("username");
+		lblUsername.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblUsername.setHorizontalAlignment(SwingConstants.CENTER);
-		lblUsername.setBounds(10, 16, 93, 24);
+		lblUsername.setBounds(0, 16, 93, 24);
 		contentPane.add(lblUsername);
 		
 		 connectButton = new JButton("connect");
+		 connectButton.setForeground(Color.BLACK);
+		 connectButton.setBackground(Color.GREEN);
+		 connectButton.setFont(new Font("Tahoma", Font.BOLD, 11));
 		
 		connectButton.addActionListener(this);
 ;
-		connectButton.setBounds(351, 14, 123, 28);
+		connectButton.setBounds(498, 54, 123, 28);
 		contentPane.add(connectButton);
 		
 		JButton disconnectButton = new JButton("disconnect");
+		disconnectButton.setBackground(Color.RED);
+		disconnectButton.setFont(new Font("Tahoma", Font.BOLD, 11));
 		disconnectButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				//Client.ClientThread.stop();
@@ -88,7 +89,7 @@ public class GUIclient extends JFrame implements ActionListener{
 				
 			}
 		});
-		disconnectButton.setBounds(496, 16, 125, 24);
+		disconnectButton.setBounds(494, 95, 125, 34);
 		contentPane.add(disconnectButton);
 		
 		inputTextArea = new JTextArea();
@@ -111,8 +112,44 @@ public class GUIclient extends JFrame implements ActionListener{
 			public void actionPerformed(ActionEvent e) {
 				Client.sendMes("Show online users");			}
 		});
-		onlineUsersButton.setBounds(494, 98, 137, 93);
+		onlineUsersButton.setBounds(492, 149, 139, 93);
 		contentPane.add(onlineUsersButton);
+		
+		ipField = new JTextField();
+		ipField.setHorizontalAlignment(SwingConstants.CENTER);
+		ipField.setText("localhost");
+		ipField.setBounds(428, 14, 193, 29);
+		contentPane.add(ipField);
+		ipField.setColumns(10);
+		
+		JLabel lblNewLabel = new JLabel("IP ADRESS");
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 13));
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setBounds(328, 16, 90, 24);
+		contentPane.add(lblNewLabel);
+		
+		JTextArea txtrForPrivateMassage = new JTextArea();
+		txtrForPrivateMassage.setFont(new Font("Courier New", Font.PLAIN, 11));
+		txtrForPrivateMassage.setText("for private massage:");
+		txtrForPrivateMassage.setBounds(483, 295, 148, 17);
+		contentPane.add(txtrForPrivateMassage);
+		
+		JTextArea txtrnamemassage = new JTextArea();
+		txtrnamemassage.setFont(new Font("Courier New", Font.PLAIN, 12));
+		txtrnamemassage.setText("(name)your massage");
+		txtrnamemassage.setBounds(483, 310, 148, 24);
+		contentPane.add(txtrnamemassage);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(10, 51, 474, 261);
+		contentPane.add(scrollPane);
+		
+		chatTextArea = new JTextArea();
+		scrollPane.setViewportView(chatTextArea);
+		chatTextArea.setEditable(false);
+		chatTextArea.setBackground(new Color(192, 192, 192));
+		chatTextArea.setWrapStyleWord(true);
+		chatTextArea.setLineWrap(true);
 		this.setVisible(true);
 	}
 /**
@@ -123,13 +160,14 @@ public class GUIclient extends JFrame implements ActionListener{
 		Object t = e.getSource();
 		if(t == connectButton) {
 			name =usernameField.getText();
+			IPAdress=ipField.getText();
 			
 			if (name.trim().equals("")) {
 				chatTextArea.append("Invalid. Please enter again:");
 			}
 			else {
 				//String adress=adfieldText.getText();,insert to the new client
-				Client = new client( name,  "localhost", 4444,this);
+				Client = new client( name,  IPAdress, 4444,this);
 				Thread clientT=new Thread(Client);
 				clientT.start();
 			}
