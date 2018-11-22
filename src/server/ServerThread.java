@@ -63,10 +63,16 @@ public class ServerThread implements Runnable {
 						System.out.println("done");
 						String sendId=input.substring(input.indexOf("(")+1, input.indexOf(")"));
 						System.out.println("do "+sendId);
+						input=input.substring(input.indexOf(")")+1);
 						for(ServerThread thatClient : server.getClients()){
 							if(thatClient.id.equals(sendId)) {
 								PrintWriter thatClientOut = thatClient.getWriter();
-								thatClientOut.write("from "+this.id+":"+input + "\r\n");
+								thatClientOut.write("Private message from "+this.id+":"+input + "\r\n");
+								thatClientOut.flush();
+							}
+							if(thatClient.id.equals(this.id)) {
+								PrintWriter thatClientOut = thatClient.getWriter();
+								thatClientOut.write("Private message from you to "+sendId+":"+input + "\r\n");
 								thatClientOut.flush();
 							}
 						}

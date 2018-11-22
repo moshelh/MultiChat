@@ -37,12 +37,13 @@ public class clientThread implements Runnable {
 	@Override
 	public void run() {
 		frame.chatTextArea.append("Welcome :" + userName+"\n");
-		
-        //System.out.println("Welcome :" + userName);
-		frame.chatTextArea.append("Local Port :" + socket.getLocalPort()+"\n");
-        System.out.println("Local Port :" + socket.getLocalPort());
-        frame.chatTextArea.append("Server = " + socket.getRemoteSocketAddress() + ":" + socket.getPort()+"\n");
-        System.out.println("Server = " + socket.getRemoteSocketAddress() + ":" + socket.getPort());
+		frame.chatTextArea.append("for sending a private message use (username)"+"\n");
+	    frame.chatTextArea.append("Enjoy!"+"\n");
+//        //System.out.println("Welcome :" + userName);
+//		frame.chatTextArea.append("Local Port :" + socket.getLocalPort()+"\n");
+//        System.out.println("Local Port :" + socket.getLocalPort());
+//        frame.chatTextArea.append("Server = " + socket.getRemoteSocketAddress() + ":" + socket.getPort()+"\n");
+//        System.out.println("Server = " + socket.getRemoteSocketAddress() + ":" + socket.getPort());
 
         try{
             PrintWriter serverOut = new PrintWriter(socket.getOutputStream(), false);

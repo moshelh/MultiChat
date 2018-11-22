@@ -100,6 +100,7 @@ public class GUIclient extends JFrame implements ActionListener{
 			public void actionPerformed(ActionEvent arg0) {
 				if(inputTextArea.getText()!=null)
 					Client.sendMes(inputTextArea.getText());
+				inputTextArea.setText(" ");
 			}
 		});
 		sendButton.setBounds(396, 332, 93, 62);
@@ -125,11 +126,12 @@ public class GUIclient extends JFrame implements ActionListener{
 				chatTextArea.append("Invalid. Please enter again:");
 			}
 			else {
-				
+				//String adress=adfieldText.getText();,insert to the new client
 				Client = new client( name,  "localhost", 4444,this);
 				Thread clientT=new Thread(Client);
 				clientT.start();
 			}
+			usernameField.setText("Start chatting");
 		}
 
 	}
