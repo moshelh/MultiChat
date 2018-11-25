@@ -22,6 +22,11 @@ import javax.swing.JScrollPane;
 import javax.swing.JScrollBar;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.awt.TextField;
 
 public class GUIclient extends JFrame implements ActionListener{
 
@@ -34,7 +39,7 @@ public class GUIclient extends JFrame implements ActionListener{
 	JTextArea inputTextArea;
 	public String name = "";
 	public List<String> clients;
-	public String IPAdress ="";
+	public InetAddress ip ;
 	private JTextField ipField;
 	
 
@@ -49,6 +54,7 @@ public class GUIclient extends JFrame implements ActionListener{
 	 * Create the frame.
 	 */
 	public GUIclient() {
+		setBackground(Color.WHITE);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 657, 444);
 		contentPane = new JPanel();
@@ -97,6 +103,11 @@ public class GUIclient extends JFrame implements ActionListener{
 		contentPane.add(inputTextArea);
 		
 		 sendButton = new JButton("send");
+		 sendButton.addKeyListener(new KeyAdapter() {
+		 	@Override
+		 	public void keyPressed(KeyEvent arg0) {
+		 	}
+		 });
 		sendButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(inputTextArea.getText()!=null)
@@ -160,14 +171,20 @@ public class GUIclient extends JFrame implements ActionListener{
 		Object t = e.getSource();
 		if(t == connectButton) {
 			name =usernameField.getText();
-			IPAdress=ipField.getText();
+			try {
+				ip=InetAddress.getByName(ipField.getText());
+			} catch (UnknownHostException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			
 			if (name.trim().equals("")) {
 				chatTextArea.append("Invalid. Please enter again:");
 			}
 			else {
 				//String adress=adfieldText.getText();,insert to the new client
-				Client = new client( name,  IPAdress, 4444,this);
+				System.out.println(ip);
+				Client = new client( name,  ip, 4444,this);
 				Thread clientT=new Thread(Client);
 				clientT.start();
 			}

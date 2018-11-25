@@ -1,6 +1,7 @@
 package client;
 
 import java.io.IOException;
+import java.net.InetAddress;
 import java.net.Socket;
 import java.util.Scanner;
 
@@ -9,7 +10,7 @@ import server.GuiServer;
 public class client implements Runnable{
 	 public String userName=null;
 	 
-	 public String serverHost;
+	 public InetAddress serverHost;
      public int serverPort;
 	 private Scanner userInputScanner;
 	 private GUIclient frame = null;
@@ -17,10 +18,10 @@ public class client implements Runnable{
 	 public Socket socket;
 	 public Scanner scan;
 	 public Thread serverAccessThread ;
-	  public client(String userName, String host, int portNumber,GUIclient frame){
+	  public client(String userName, InetAddress ip, int portNumber,GUIclient frame){
 		  
 	        this.userName = userName;
-	        this.serverHost = host;
+	        this.serverHost = ip;
 	        this.serverPort = portNumber;
 	        this.frame=frame;
 	    }
