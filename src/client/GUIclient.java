@@ -27,7 +27,11 @@ import java.awt.event.KeyEvent;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.awt.TextField;
-
+/**
+ * for every new client ,creating a new gui frame .
+ * @author moshe and ariel
+ *
+ */
 public class GUIclient extends JFrame implements ActionListener{
 
 	private JPanel contentPane;
@@ -109,6 +113,9 @@ public class GUIclient extends JFrame implements ActionListener{
 		 	}
 		 });
 		sendButton.addActionListener(new ActionListener() {
+			/**
+			 * if the send button is pushed , take the message from input textArea .
+			 */
 			public void actionPerformed(ActionEvent arg0) {
 				if(inputTextArea.getText()!=null)
 					Client.sendMes(inputTextArea.getText());

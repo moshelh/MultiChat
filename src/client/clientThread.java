@@ -8,7 +8,12 @@ import java.util.LinkedList;
 import java.util.Scanner;
 
 import javax.swing.JTextArea;
-
+/**
+ *  creating a helper class for handling various requests.
+ *  sending and getting the clients message
+ * @author moshe and ariel
+ *
+ */
 public class clientThread implements Runnable {
     private Socket socket;
     private String userName;
@@ -39,18 +44,12 @@ public class clientThread implements Runnable {
 		frame.chatTextArea.append("Welcome :" + userName+"\n");
 		frame.chatTextArea.append("for sending a private message use (username)"+"\n");
 	    frame.chatTextArea.append("Enjoy!"+"\n");
-//        //System.out.println("Welcome :" + userName);
-//		frame.chatTextArea.append("Local Port :" + socket.getLocalPort()+"\n");
-//        System.out.println("Local Port :" + socket.getLocalPort());
-//        frame.chatTextArea.append("Server = " + socket.getRemoteSocketAddress() + ":" + socket.getPort()+"\n");
-//        System.out.println("Server = " + socket.getRemoteSocketAddress() + ":" + socket.getPort());
 
         try{
             PrintWriter serverOut = new PrintWriter(socket.getOutputStream(), false);
             InputStream serverInStream = socket.getInputStream();
             Scanner serverIn = new Scanner(serverInStream);
-            // BufferedReader userBr = new BufferedReader(new InputStreamReader(userInStream));
-            // Scanner userIn = new Scanner(userInStream);
+        
 
             while(!socket.isClosed()){
                 if(serverInStream.available() > 0){

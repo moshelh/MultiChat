@@ -6,7 +6,13 @@ import java.net.Socket;
 import java.util.Scanner;
 
 import server.GuiServer;
-
+/**
+ * The client process, is connected to the server’s system over a network.
+ * The client process sends a request across the network to the server requesting service of
+ * some form, e.g. reading or writing a file on the server’s system.
+ * @author moshe and ariel
+ *
+ */
 public class client implements Runnable{
 	 public String userName=null;
 	 
@@ -28,6 +34,9 @@ public class client implements Runnable{
 	  public void sendMes(String s) {
           ClientThread.addNextMessage(s);
 	  }
+	  /**
+	   * open a new socket and new thread for the client. 
+	   */
 	  public void startClient(){
 		   try{
 			   
@@ -44,25 +53,13 @@ public class client implements Runnable{
 	            }
 	            
 	        }catch(IOException ex){
+	        	frame.chatTextArea.append("Fatal Connection error!\n");
 	            System.err.println("Fatal Connection error!");
 	            ex.printStackTrace();
 
 	    }
 	  }
 	  
-
-//	public void disConnect(){
-//		  try {
-//			  
-//			  serverAccessThread = new Thread(ClientThread);
-//			  serverAccessThread.start();
-//			  ClientThread.addNextMessage(this.userName+"diconnected");
-//			
-//			  socket.close();			
-//		} catch (Exception e) {
-//			// TODO: handle exception
-//		}
-//	  }
 	@Override
 	public void run() {
 		

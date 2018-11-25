@@ -9,7 +9,15 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * The server runs an infinite loop to keep accepting incoming requests
+ * When a request comes, it assigns a new thread to handle the communication part
+ * The server also stores the client name into an ArrayList , to keep a track of connected devices.
+ * When the server finishes processing the request, it waits for the next client request to arrive.
+ * 
+ * @author moshe and ariel 
+ *
+ */
 public class Server {
 	public static boolean flag;
 	private static final int portNumber = 4444;

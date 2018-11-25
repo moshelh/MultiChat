@@ -4,7 +4,12 @@ package server;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.Scanner;
-
+/**
+ * we create a helper class for handling various requests.
+ * the serverThread gets an input and sends a broadcast/private message,in addition it shows onlineUsers and get a disconnect request. 
+ * @author moshe and ariel 
+ *
+ */
 public class ServerThread implements Runnable {
 	private Socket socket;
 	private PrintWriter clientOut;
